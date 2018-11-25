@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-sm-6 text-center">
       <%- if @minder.door_open? -%>
-        <button type="button" class="btn btn-warning btn-lg">Door is open</button>
+        <%= button_to "Door is Open", { :controller => :garage_control, :action => :open_close}, { :method => :put, :class => 'btn btn-warning btn-lg btn-door-open', :form_class => 'frm-door-button', :remote => true } %>
       <%- else -%>
-        <button type="button" class="btn btn-primary btn-lg">Door is closed</button>
+        <%= button_to "Door is Closed", { :controller => :garage_control, :action => :open_close}, { :method => :put, :class => 'btn btn-primary btn-lg btn-door-open', :form_class => 'frm-door-button', :remote => true } %>
       <%- end -%>
       <%- if @last_open -%>
         <hr />
@@ -20,16 +20,17 @@
 
     <div class="col-sm-6 text-center">
       <hr class="d-sm-none" />
-      <button class="btn btn-secondary btn-lg">Timer</button>
+      <%= button_to "Timer", { :controller => :garage_control, :action => :timer_advance}, { :method => :put, :class => 'btn btn-secondary btn-lg', :form_class => 'frm-timer-button', :remote => true } %>
+      <!--<button class="btn btn-secondary btn-lg">Timer</button>-->
       <hr />
       <div class="row">
-        <div class="col-4 text-center <%= timer_class 0 %>">
+        <div id="timer-indicator-0" class="col-4 text-center timer-indicator <%= timer_class 0 %>">
           <%= @minder.timer_settings[0] %> mins
         </div>
-        <div class="col-4 text-center <%= timer_class 1 %>">
+        <div id="timer-indicator-1" class="col-4 text-center timer-indicator <%= timer_class 1 %>">
           <%= @minder.timer_settings[1] %> mins
         </div>
-        <div class="col-4 text-center <%= timer_class 2 %>">
+        <div id="timer-indicator-2" class="col-4 text-center timer-indicator <%= timer_class 2 %>">
           <%= @minder.timer_settings[2] %> mins
         </div>
       </div>

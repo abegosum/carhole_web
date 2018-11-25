@@ -1,7 +1,7 @@
 require 'date'
 
 class GarageStatusController < ApplicationController
-  before_action :set_minder, only: [ :view ]
+  before_action :set_minder, only: [ :view, :door_open ]
   helper_method :timer_class
 
   def view
@@ -19,6 +19,12 @@ class GarageStatusController < ApplicationController
         garage_status[:selected_timer_setting] = @minder.timer_settings[@minder.timer_setting_index]
         render :json => garage_status.to_json
       }
+    end
+  end
+
+  def door_open
+    respond_to do |format|
+      format.json { render :json => @minder.door_open? }
     end
   end
   
