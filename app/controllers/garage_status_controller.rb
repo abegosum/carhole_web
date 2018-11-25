@@ -7,6 +7,19 @@ class GarageStatusController < ApplicationController
   def view
     @last_open = Time.at(@minder.door_last_opened_time).to_datetime if @minder.door_last_opened_time
     @last_closed = Time.at(@minder.door_last_closed_time).to_datetime if @minder.door_last_closed_time
+    respond_to do |format|
+      format.html
+      format.json {
+        garage_status = Hash.new
+        garage_status[:door_is_open] = @minder.door_open?
+        garage_status[:door_last_opened_time] = @minder.door_last_opened_time
+        garage_status[:door_last_closed_time] = @minder.door_last_closed_time
+        garage_status[:available_timer_settings] = @minder.timer_settings
+        garage_status[:selected_timer_index] = @minder.timer_setting_index
+        garage_status[:selected_timer_setting] = @minder.timer_settings[@minder.timer_setting_index]
+        render :json => garage_status.to_json
+      }
+    end
   end
   
   private
