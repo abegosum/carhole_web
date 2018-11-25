@@ -1,0 +1,2 @@
+module GarageStatusHelper
+end
