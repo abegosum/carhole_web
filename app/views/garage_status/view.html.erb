@@ -9,12 +9,12 @@
       <%- if @last_open -%>
         <hr />
         <h3>Door Last Opened</h3>
-        <p><%= @last_open.strftime('%Y-%m-%d %H:%M:%S') %></p>
+        <p id="p-last-opened"><%= @last_open.strftime('%Y-%m-%d %H:%M:%S') %></p>
       <%- end -%>
       <%- if @last_closed -%>
         <hr />
         <h3>Door Last Closed</h3>
-        <p><%= @last_closed.strftime('%Y-%m-%d %H:%M:%S') %></p>
+        <p id="p-last-closed"><%= @last_closed.strftime('%Y-%m-%d %H:%M:%S') %></p>
       <%- end -%>
     </div>
 

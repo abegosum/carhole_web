@@ -22,12 +22,6 @@ class GarageStatusController < ApplicationController
     end
   end
 
-  def door_open
-    respond_to do |format|
-      format.json { render :json => @minder.door_open? }
-    end
-  end
-  
   private
   def set_minder
     @minder = CarholeMinder.new
