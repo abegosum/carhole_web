@@ -66,3 +66,41 @@ To open or close the garage door, click the blue or yellow button reporting the 
 To cycle through the timer settings, click the grey timer button.
 
 ![Timer Button](doc/images/timer_button_01.png) -> ![Timer Button Changed](doc/images/timer_button_02.png)
+
+## REST Service
+
+Two endpoints are available for consumption by REST clients.  One provides a single method to gather data about the state of the garage door, the other provides two methods where the client can change state by issuing HTTP PUT requests.
+
+### `/garage_status/view.json` (`GET`)
+
+This endpoint and method provides all the data available in the UI of the application as a JSON object with the following members:
+
+* `door_is_open` - a boolean stating whether the door is currently open
+* `door_last_opened_time` - an integer representing a Unix timestamp of the last time the garage door was opened
+* `door_last_closed_time` - an integer representing a Unix timestamp of the last time the garage door was closed
+* `available_timer_settings` - an array of integers, listing the possible timer settings (in minutes)
+    * Note that this is configurable by changing constant values in the [backend](https://github.com/abegosum/carhole_minder)
+* `selected_timer_index` - an integer representing an index of `available_timer_settings`; this is the currently selected timer setting
+* `selected_timer_setting` - an integer representing the currently selected timer setting as a number of minutes
+
+### `/garage_control` 
+
+This endpoint provides two methods to alter garage system state.  These methods were designed to emulate the button presses on the unit, so they are simple `PUT` requests with no data arguments.
+
+#### `/garage_control/open_close` (`PUT`)
+
+Opens or closes the garage door and returns a String: `opening` if the door was closed before the request and `closing` if the door was opened before the request.
+
+#### `/garage_control/timer_advance` (`PUT`)
+
+Advances the timer to the next setting (or wraps round to the first if there are no settings left in the array).  Returns the index of the newly selected timer from the `available_timer_settings` (retrievable from `/garage_status/view.json` via `GET` request, see above).
+
+## License
+
+Copyright 2018 Aaron M. Bond
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
