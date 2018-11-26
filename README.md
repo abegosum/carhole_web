@@ -1,10 +1,10 @@
 # Carhole Web
 
-![Carhole Web Interface](doc/images/screenshot.png) ![Carhole Mobile Web Interface](doc/images/mobile_screenshot.png)
-
 Carhole is a home-built garage door control system.  More details about the physical device and build can be found in [this blog post](https://thelurkingvariable.com/2018/06/19/a-garage-door-controller-based-on-a-raspberry-pi/).  It is designed with a Raspberry Pi in mind.  
 
 This project allows a web front-end to be coupled with the existing [backend](https://github.com/abegosum/carhole_minder) backend system on the same device, allowing remote control of the garage door.  
+
+![Carhole Web Interface](doc/images/screenshot.png) ![Carhole Mobile Web Interface](doc/images/mobile_screenshot.png)
 
 ## Prerequisites
 
@@ -19,28 +19,50 @@ Optionally, you can run the application proxied by a web server, such as Apache 
 ## Installation
 
 * Clone the project into the `/opt` directory and chown the application files to be owned by the `pi` user and group
-    sudo chown -R pi:pi /opt/carhole_web
+```bash
+sudo chown -R pi:pi /opt/carhole_web
+```
 * Run bundle install to install all of the necessary dependencies
-    cd /opt/carhole_web
-    bundle install
+```bash
+cd /opt/carhole_web
+bundle install
+```
 * Precompile the static assets for use in the production environment
-    RAILS_ENV=production rails assets:precompile
+```bash
+RAILS_ENV=production rails assets:precompile
+```
 * Set up the application secret credentials
-    EDITOR=vim rails credentials:edit
+```bash
+EDITOR=vim rails credentials:edit
+```
 * Test the server by starting puma and visiting port 8080 of your device in your browser (if your device is on IP `192.168.1.2` use `http://192.168.1.2:8080`, for example)
-    bundle exec puma -b tcp://0.0.0.0:8080 -e production
+```bash
+bundle exec puma -b tcp://0.0.0.0:8080 -e production
+```
 * Press CTRL-C to quit puma
 * Copy the systemd unit file to the systemd directory
-    sudo cp /opt/carhole_web/carhole_web.service /etc/systemd/system
+```bash
+sudo cp /opt/carhole_web/carhole_web.service /etc/systemd/system
+```
 * Use systemctl to start the service and test the app in your browser again (note that there may be a delay between the return of this command and when the app is available; give it 60 seconds to be sure)
-    sudo systemctl start carhole_web.service
+```bash
+sudo systemctl start carhole_web.service
+```
 * (Optional) Use systemctl to enable the service to start on boot
-    sudo systemctl enable carhole_web.service
+```bash
+sudo systemctl enable carhole_web.service
+```
 
 ## Usage
 
-### Opening the Garage Door
+### Opening or Closing the Garage Door
 
-To open the garage door, click the blue button reporting the garage door status.
+To open or close the garage door, click the blue or yellow button reporting the garage door status.
 
 ![Door Button](doc/images/garage_button_01.png) -> ![Door Button Opening](doc/images/garage_button_02.png) -> ![Door Button Open](doc/images/garage_button_03.png)
+
+### Changing the Timer Setting
+
+To cycle through the timer settings, click the grey timer button.
+
+![Timer Button](doc/images/timer_button_01.png) -> ![Timer Button Changed](doc/images/timer_button_02.png)
