@@ -6,8 +6,7 @@
 * bundle install
 * RAILS_ENV=production rails assets:precompile
 * Set up secret
-** rails secret
-** EDITOR=vim rails secrets:edit
+** EDITOR=vim rails credentials:edit
 * bundle exec puma -b tcp://0.0.0.0:8080 -e production
 
 This README would normally document whatever steps are necessary to get the
