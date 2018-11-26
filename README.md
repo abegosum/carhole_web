@@ -1,5 +1,15 @@
 # README
 
+## Installation
+
+* sudo chown -R pi:pi carhole_web
+* bundle install
+* RAILS_ENV=production rails assets:precompile
+* Set up secret
+** rails secret
+** EDITOR=vim rails secrets:edit
+* bundle exec puma -b tcp://0.0.0.0:8080 -e production
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
