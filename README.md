@@ -25,7 +25,7 @@ sudo chown -R pi:pi /opt/carhole_web
 * Run bundle install to install all of the necessary dependencies
 ```bash
 cd /opt/carhole_web
-bundle install
+bundle install --path=vendor/bundle
 ```
 * Precompile the static assets for use in the production environment
 ```bash
